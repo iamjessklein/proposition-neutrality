@@ -124,15 +124,45 @@ function App() {
           This tool analyzes language patterns to assess neutrality. 
           Results are based on automated text analysis and should be used as a guide.
         </p>
-        <p className="source-link">
-          Source: <a 
-            href="https://www.nycvotes.org/whats-on-the-ballot/2025-general-election/2025-ballot-proposals/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            NYC Votes - 2025 Ballot Proposals
-          </a>
-        </p>
+        
+        <div className="footer-sources">
+          <div className="source-section">
+            <strong>Data Source:</strong>
+            <a 
+              href="https://www.nyc.gov/assets/charter/downloads/pdf/2025/appendix-a-adopted-questions.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              2025 NYC Charter Revision Commission - Appendix A (PDF)
+            </a>
+            <span className="source-separator">|</span>
+            <a 
+              href="https://www.nycvotes.org/whats-on-the-ballot/2025-general-election/2025-ballot-proposals/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              NYC Votes - 2025 Ballot Proposals
+            </a>
+          </div>
+
+          <div className="source-section">
+            <strong>Analysis Methodology:</strong>
+            <span>
+              Custom-built text analysis system using pattern matching on curated word lists. 
+              The analyzer identifies loaded language, persuasive techniques, and bias indicators 
+              based on linguistic research on neutral vs. biased language patterns.
+            </span>
+          </div>
+
+          <div className="source-section">
+            <strong>Technology Stack:</strong>
+            <span>
+              Built with <a href="https://react.dev" target="_blank" rel="noopener noreferrer">React</a> and 
+              {' '}<a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">Vite</a>. 
+              Text analysis performed using custom JavaScript algorithms with no external NLP libraries.
+            </span>
+          </div>
+        </div>
       </footer>
     </div>
   )
