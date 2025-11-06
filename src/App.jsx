@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ballotProposals } from './data/ballotProposals'
 import { analyzeNeutrality, getRatingInfo } from './utils/neutralityAnalyzer'
 import { highlightText } from './utils/textHighlighter'
+import { rewriteForNeutrality } from './utils/textRewriter'
 import './App.css'
 
 function App() {
@@ -112,6 +113,13 @@ function App() {
                       ))}
                     </ul>
                   </div>
+                </div>
+              )}
+
+              {proposal.analysis.rating === 'not neutral' && (
+                <div className="rewritten-section">
+                  <h3 className="rewritten-title">Suggested Neutral Rewording:</h3>
+                  <p className="rewritten-text">{rewriteForNeutrality(proposal.fullText)}</p>
                 </div>
               )}
             </div>
