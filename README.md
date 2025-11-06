@@ -22,8 +22,13 @@ The analyzer evaluates text for:
 - Superlatives
 - Repetition patterns
 - Neutral framing indicators
+- **Wikipedia Neutral Point of View (NPOV) violations** based on [Wikipedia's NPOV guidelines](https://en.wikipedia.org/wiki/Wikipedia:Neutral_point_of_view):
+  - Value judgment language
+  - Editorial voice (first/second person instead of neutral third person)
+  - Unattributed claims
+  - Advocacy language
 
-The analysis combines machine learning-based sentiment detection with custom pattern matching for comprehensive neutrality assessment.
+The analysis combines machine learning-based sentiment detection with custom pattern matching and Wikipedia's NPOV standards for comprehensive neutrality assessment.
 
 ## Getting Started
 
