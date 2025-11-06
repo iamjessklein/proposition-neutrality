@@ -118,10 +118,10 @@ export function analyzeNeutrality(text) {
   
   // Determine rating
   let rating;
-  if (normalizedScore >= 75) {
+  if (normalizedScore >= 90) {
     rating = 'very neutral';
-  } else if (normalizedScore >= 50) {
-    rating = 'meh';
+  } else if (normalizedScore >= 80) {
+    rating = 'neutral';
   } else {
     rating = 'not neutral';
   }
@@ -148,22 +148,22 @@ export function getRatingInfo(rating) {
       label: 'Very Neutral',
       color: '#10b981',
       emoji: '✓',
-      description: 'Language is factual and unbiased'
+      description: 'Language is factual and unbiased (90-100)'
     },
-    'meh': {
-      label: 'Meh',
-      color: '#f59e0b',
-      emoji: '~',
-      description: 'Somewhat neutral with minor bias indicators'
+    'neutral': {
+      label: 'Neutral',
+      color: '#3b82f6',
+      emoji: '→',
+      description: 'Generally neutral with some minor bias indicators (80-89)'
     },
     'not neutral': {
       label: 'Not Neutral',
       color: '#ef4444',
       emoji: '⚠',
-      description: 'Contains loaded language or persuasive framing'
+      description: 'Contains loaded language or persuasive framing (0-79)'
     }
   };
   
-  return ratings[rating] || ratings['meh'];
+  return ratings[rating] || ratings['neutral'];
 }
 
