@@ -122,12 +122,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
-  background-color: #fef3c7;
-  border-left: 4px solid #f59e0b;
-  border-radius: 6px;
-  margin-bottom: 16px;
-  animation: slideDown 0.3s ease;
+  padding: 0;
+  margin-bottom: 0;
 }
 
 .wikipedia-logo {
@@ -138,12 +134,12 @@
 
 .npov-message {
   font-size: 0.95rem;
-  color: #78350f;
+  color: #4b5563;
   line-height: 1.5;
 }
 
 .npov-link {
-  color: #92400e;
+  color: #3b82f6;
   text-decoration: underline;
   font-weight: 600;
   transition: opacity 0.2s;
