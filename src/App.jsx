@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ballotProposals } from './data/ballotProposals'
 import { analyzeNeutrality, getRatingInfo } from './utils/neutralityAnalyzer'
+import { highlightText } from './utils/textHighlighter'
 import './App.css'
 
 function App() {
@@ -64,6 +65,31 @@ function App() {
 
               <p className="proposal-description">{proposal.description}</p>
 
+              <div className="details-section">
+                <h3>Full Proposal Text:</h3>
+                <div className="highlighted-text">
+                  {highlightText(proposal.fullText).map((part, idx) => {
+                    if (part.type === 'positive') {
+                      return <span key={idx} className="highlight-positive">{part.text}</span>;
+                    } else if (part.type === 'negative') {
+                      return <span key={idx} className="highlight-negative">{part.text}</span>;
+                    } else {
+                      return <span key={idx}>{part.text}</span>;
+                    }
+                  })}
+                </div>
+                <div className="highlight-legend">
+                  <span className="legend-item">
+                    <span className="legend-color legend-positive"></span>
+                    Positive/loaded language
+                  </span>
+                  <span className="legend-item">
+                    <span className="legend-color legend-negative"></span>
+                    Negative/loaded language
+                  </span>
+                </div>
+              </div>
+
               <button 
                 className="expand-button"
                 onClick={() => toggleExpand(proposal.id)}
@@ -85,11 +111,6 @@ function App() {
                         <li key={idx}>{reason}</li>
                       ))}
                     </ul>
-                  </div>
-
-                  <div className="details-section">
-                    <h3>Full Text:</h3>
-                    <p className="full-text">{proposal.fullText}</p>
                   </div>
                 </div>
               )}
