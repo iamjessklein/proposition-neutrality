@@ -129,19 +129,11 @@ function App() {
           <div className="source-section">
             <strong>Data Source:</strong>
             <a 
-              href="https://www.nyc.gov/assets/charter/downloads/pdf/2025/appendix-a-adopted-questions.pdf" 
+              href="https://www.nyc.gov/assets/charter/downloads/pdf/2025/7-21-2025-charter-revision-commission-adopted-final-report-digital.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
             >
-              2025 NYC Charter Revision Commission - Appendix A (PDF)
-            </a>
-            <span className="source-separator">|</span>
-            <a 
-              href="https://www.nycvotes.org/whats-on-the-ballot/2025-general-election/2025-ballot-proposals/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              NYC Votes - 2025 Ballot Proposals
+              2025 NYC Charter Revision Commission - Adopted Final Report (PDF)
             </a>
           </div>
 

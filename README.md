@@ -71,10 +71,7 @@ The built files will be in the `dist` directory.
 ## Data Source
 
 Ballot proposal text sourced from the official NYC Charter Revision Commission document:
-[2025 NYC Charter Revision Commission - Appendix A: Proposed Questions (PDF)](https://www.nyc.gov/assets/charter/downloads/pdf/2025/appendix-a-adopted-questions.pdf)
-
-Additional information available at:
-[NYC Votes - 2025 Ballot Proposals](https://www.nycvotes.org/whats-on-the-ballot/2025-general-election/2025-ballot-proposals/)
+[2025 NYC Charter Revision Commission - Adopted Final Report (PDF)](https://www.nyc.gov/assets/charter/downloads/pdf/2025/7-21-2025-charter-revision-commission-adopted-final-report-digital.pdf)
 
 ## Deployment
 
