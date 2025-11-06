@@ -7,20 +7,23 @@ A web application that analyzes the language used in NYC's 2025 ballot proposals
 - Analyzes all 6 NYC 2025 ballot proposals
 - Provides neutrality scores (0-100)
 - Three-tier rating system:
-  - **Very Neutral** (75-100): Language is factual and unbiased
-  - **Meh** (50-74): Somewhat neutral with minor bias indicators
-  - **Not Neutral** (0-49): Contains loaded language or persuasive framing
+  - **Neutral** (90-100): Language is factual and unbiased
+  - **Mostly Neutral** (80-89): Generally neutral with some minor bias indicators
+  - **Not Neutral** (0-79): Contains loaded language or persuasive framing
 - Detailed analysis with reasons for each rating
 - Beautiful, modern UI with expandable details
 
 ## How It Works
 
 The analyzer evaluates text for:
+- **Sentiment analysis** using the [sentiment](https://www.npmjs.com/package/sentiment) library to detect emotional tone
 - Loaded/emotive language (positive or negative)
 - Persuasive techniques
 - Superlatives
 - Repetition patterns
 - Neutral framing indicators
+
+The analysis combines machine learning-based sentiment detection with custom pattern matching for comprehensive neutrality assessment.
 
 ## Getting Started
 

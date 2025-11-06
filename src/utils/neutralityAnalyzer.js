@@ -4,7 +4,12 @@
  * - Biased framing
  * - Persuasive techniques
  * - Factual vs. opinion language
+ * - Sentiment analysis using the sentiment library
  */
+
+import Sentiment from 'sentiment';
+
+const sentiment = new Sentiment();
 
 // Words/phrases that indicate bias or loaded language
 const loadedLanguage = {
@@ -48,6 +53,28 @@ export function analyzeNeutrality(text) {
   
   let biasScore = 0;
   const reasons = [];
+  
+  // Sentiment analysis using the sentiment library
+  const sentimentResult = sentiment.analyze(text);
+  const sentimentScore = sentimentResult.score;
+  const sentimentMagnitude = Math.abs(sentimentScore);
+  
+  // Strong sentiment (positive or negative) indicates bias
+  // Neutral text should have sentiment score close to 0
+  if (sentimentMagnitude > 2) {
+    const sentimentType = sentimentScore > 0 ? 'positive' : 'negative';
+    const sentimentBias = Math.min(sentimentMagnitude * 3, 25); // Cap at 25 points
+    biasScore += sentimentBias;
+    reasons.push(`Sentiment analysis indicates ${sentimentType} sentiment (score: ${sentimentScore})`);
+  }
+  
+  // Check for comparative words that might indicate bias
+  if (sentimentResult.comparative !== undefined) {
+    const comparativeMagnitude = Math.abs(sentimentResult.comparative);
+    if (comparativeMagnitude > 0.1) {
+      biasScore += Math.min(comparativeMagnitude * 10, 15);
+    }
+  }
   
   // Check for loaded negative language
   const negativeMatches = loadedLanguage.negative.filter(word => 
@@ -135,7 +162,16 @@ export function analyzeNeutrality(text) {
     score: Math.round(normalizedScore),
     rating,
     reasons,
-    biasScore: Math.round(biasScore)
+    biasScore: Math.round(biasScore),
+    sentiment: {
+      score: sentimentScore,
+      comparative: sentimentResult.comparative || 0,
+      calculation: sentimentResult.calculation || [],
+      tokens: sentimentResult.tokens || [],
+      words: sentimentResult.words || [],
+      positive: sentimentResult.positive || [],
+      negative: sentimentResult.negative || []
+    }
   };
 }
 

@@ -140,9 +140,11 @@ function App() {
           <div className="source-section">
             <strong>Analysis Methodology:</strong>
             <span>
-              Custom-built text analysis system using pattern matching on curated word lists. 
-              The analyzer identifies loaded language, persuasive techniques, and bias indicators 
-              based on linguistic research on neutral vs. biased language patterns.
+              Text analysis combines sentiment analysis using the{' '}
+              <a href="https://www.npmjs.com/package/sentiment" target="_blank" rel="noopener noreferrer">sentiment</a> library 
+              with custom pattern matching on curated word lists. The analyzer identifies loaded language, 
+              persuasive techniques, bias indicators, and emotional sentiment based on linguistic research 
+              on neutral vs. biased language patterns.
             </span>
           </div>
 
@@ -151,7 +153,9 @@ function App() {
             <span>
               Built with <a href="https://react.dev" target="_blank" rel="noopener noreferrer">React</a> and 
               {' '}<a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">Vite</a>. 
-              Text analysis performed using custom JavaScript algorithms with no external NLP libraries.
+              Sentiment analysis powered by the{' '}
+              <a href="https://www.npmjs.com/package/sentiment" target="_blank" rel="noopener noreferrer">sentiment</a> library, 
+              combined with custom JavaScript algorithms for pattern matching and bias detection.
             </span>
           </div>
         </div>
