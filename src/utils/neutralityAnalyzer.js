@@ -5,6 +5,9 @@
  * - Persuasive techniques
  * - Factual vs. opinion language
  * - Sentiment analysis using the sentiment library
+ * - Wikipedia Neutral Point of View (NPOV) violations
+ * 
+ * Based on Wikipedia's NPOV guidelines: https://en.wikipedia.org/wiki/Wikipedia:Neutral_point_of_view
  */
 
 import Sentiment from 'sentiment';
@@ -37,6 +40,48 @@ const loadedLanguage = {
 const neutralIndicators = [
   'would', 'could', 'may', 'might', 'proposal', 'would allow', 'would create',
   'would make', 'would change', 'would move', 'would require'
+];
+
+// Wikipedia NPOV: Words to watch (from Wikipedia's NPOV guidelines)
+// These words often express value judgments and should be avoided or attributed
+const wikipediaNPOVWords = [
+  // Value judgments and POV pushing
+  'obviously', 'clearly', 'undoubtedly', 'certainly', 'definitely', 'undeniably',
+  'of course', 'naturally', 'evidently', 'plainly', 'manifestly',
+  
+  // Advocacy and promotional language
+  'should', 'must', 'ought to', 'needs to', 'has to', 'requires that',
+  'important', 'significant', 'crucial', 'vital', 'essential', 'critical',
+  
+  // Controversial claims without attribution
+  'everyone knows', 'it is known', 'widely recognized', 'commonly accepted',
+  'experts agree', 'scientists say', 'studies show',
+  
+  // Pejorative terms
+  'so-called', 'alleged', 'claimed', 'purported', 'supposed',
+  
+  // Editorializing
+  'unfortunately', 'fortunately', 'sadly', 'tragically', 'ironically',
+  'interestingly', 'surprisingly', 'shockingly', 'amazingly',
+  
+  // Comparative language that may be POV
+  'better', 'worse', 'best', 'worst', 'superior', 'inferior',
+  'more effective', 'less effective', 'improved', 'degraded',
+  
+  // Absolute statements
+  'always', 'never', 'all', 'none', 'every', 'no one', 'everyone',
+  'completely', 'totally', 'entirely', 'absolutely',
+  
+  // Emotional language
+  'terrible', 'awful', 'horrible', 'disgusting', 'outrageous', 'shocking',
+  'wonderful', 'amazing', 'fantastic', 'brilliant', 'perfect'
+];
+
+// Wikipedia NPOV: Impartial tone violations
+const impartialToneViolations = [
+  'we', 'our', 'us', // First person plural (editorial voice)
+  'you', 'your', // Second person (direct address)
+  'I', 'my', 'me' // First person singular
 ];
 
 /**
@@ -138,6 +183,64 @@ export function analyzeNeutrality(text) {
     if (repeatedWords.length > 2) {
       reasons.push(`Excessive repetition of words: ${repeatedWords.slice(0, 3).join(', ')}`);
     }
+  }
+  
+  // Wikipedia NPOV: Check for words to watch (value judgments, POV pushing)
+  const npovMatches = wikipediaNPOVWords.filter(word => 
+    lowerText.includes(word)
+  );
+  if (npovMatches.length > 0) {
+    biasScore += npovMatches.length * 8;
+    reasons.push(`Wikipedia NPOV: Contains value judgment language: ${npovMatches.slice(0, 5).join(', ')}`);
+  }
+  
+  // Wikipedia NPOV: Check for impartial tone violations (editorial voice)
+  const toneViolations = impartialToneViolations.filter(word => {
+    const regex = new RegExp(`\\b${word}\\b`, 'gi');
+    return regex.test(text);
+  });
+  if (toneViolations.length > 0) {
+    biasScore += toneViolations.length * 10;
+    reasons.push(`Wikipedia NPOV: Uses editorial voice (${toneViolations.join(', ')}) instead of neutral third person`);
+  }
+  
+  // Wikipedia NPOV: Check for unattributed claims (statements that should be attributed)
+  const unattributedPatterns = [
+    /\b(studies?|research|experts?|scientists?|scholars?)\s+(show|prove|demonstrate|indicate|suggest|find)/gi,
+    /\b(it is|this is)\s+(known|understood|recognized|accepted|believed)/gi,
+    /\b(widely|generally|commonly)\s+(known|accepted|recognized|believed)/gi
+  ];
+  
+  let unattributedCount = 0;
+  unattributedPatterns.forEach(pattern => {
+    const matches = text.match(pattern);
+    if (matches) {
+      unattributedCount += matches.length;
+    }
+  });
+  
+  if (unattributedCount > 0) {
+    biasScore += unattributedCount * 7;
+    reasons.push(`Wikipedia NPOV: Contains unattributed claims that should be attributed to sources`);
+  }
+  
+  // Wikipedia NPOV: Check for advocacy language (telling reader what to think)
+  const advocacyPatterns = [
+    /\b(should|must|ought to|needs to)\s+(be|do|have|make)/gi,
+    /\b(it is|this is)\s+(important|critical|essential|crucial|vital)/gi
+  ];
+  
+  let advocacyCount = 0;
+  advocacyPatterns.forEach(pattern => {
+    const matches = text.match(pattern);
+    if (matches) {
+      advocacyCount += matches.length;
+    }
+  });
+  
+  if (advocacyCount > 0) {
+    biasScore += advocacyCount * 6;
+    reasons.push(`Wikipedia NPOV: Contains advocacy language (telling reader what to think)`);
   }
   
   // Normalize score (0-100 scale, inverted so higher = more neutral)

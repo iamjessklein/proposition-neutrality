@@ -152,7 +152,9 @@ function App() {
               <a href="https://www.npmjs.com/package/sentiment" target="_blank" rel="noopener noreferrer">sentiment</a> library 
               with custom pattern matching on curated word lists. The analyzer identifies loaded language, 
               persuasive techniques, bias indicators, and emotional sentiment based on linguistic research 
-              on neutral vs. biased language patterns.
+              on neutral vs. biased language patterns. Additionally, the analysis evaluates text against{' '}
+              <a href="https://en.wikipedia.org/wiki/Wikipedia:Neutral_point_of_view" target="_blank" rel="noopener noreferrer">Wikipedia's Neutral Point of View (NPOV) guidelines</a>, 
+              checking for value judgments, editorial voice, unattributed claims, and advocacy language.
             </span>
           </div>
 
