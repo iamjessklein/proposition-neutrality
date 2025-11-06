@@ -73,6 +73,60 @@ The built files will be in the `dist` directory.
 Ballot proposal information sourced from:
 [NYC Votes - 2025 Ballot Proposals](https://www.nycvotes.org/whats-on-the-ballot/2025-general-election/2025-ballot-proposals/)
 
+## Deployment
+
+This app can be easily deployed to the internet using several platforms:
+
+### Option 1: Vercel (Recommended - Easiest)
+
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+3. Click "New Project" and import your repository
+4. Vercel will auto-detect Vite settings - just click "Deploy"
+5. Your app will be live in seconds!
+
+**Or use Vercel CLI:**
+```bash
+npm install -g vercel
+vercel
+```
+
+### Option 2: Netlify
+
+1. Push your code to GitHub
+2. Go to [netlify.com](https://netlify.com) and sign in with GitHub
+3. Click "New site from Git" and select your repository
+4. Build settings:
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+5. Click "Deploy site"
+
+**Or use Netlify CLI:**
+```bash
+npm install -g netlify-cli
+netlify deploy --prod
+```
+
+### Option 3: GitHub Pages
+
+1. Install gh-pages: `npm install --save-dev gh-pages`
+2. Add to package.json scripts:
+   ```json
+   "predeploy": "npm run build",
+   "deploy": "gh-pages -d dist"
+   ```
+3. Run: `npm run deploy`
+
+### Option 4: Cloudflare Pages
+
+1. Push your code to GitHub
+2. Go to [Cloudflare Dashboard](https://dash.cloudflare.com) → Pages
+3. Connect your GitHub repository
+4. Build settings:
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+5. Deploy!
+
 ## License
 
 MIT
