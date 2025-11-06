@@ -66,6 +66,27 @@ function App() {
 
               <p className="proposal-description">{proposal.description}</p>
 
+              {proposal.analysis.hasNPOVViolations && (
+                <div className="npov-warning">
+                  <img 
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/263px-Wikipedia-logo-v2.svg.png" 
+                    alt="Wikipedia logo" 
+                    className="wikipedia-logo"
+                  />
+                  <span className="npov-message">
+                    This does not pass{' '}
+                    <a 
+                      href="https://en.wikipedia.org/wiki/Wikipedia:Neutral_point_of_view" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="npov-link"
+                    >
+                      NPOV guidelines
+                    </a>.
+                  </span>
+                </div>
+              )}
+
               <div className="details-section">
                 <h3>Full Proposal Text:</h3>
                 <div className="highlighted-text">

@@ -189,8 +189,10 @@ export function analyzeNeutrality(text) {
   const npovMatches = wikipediaNPOVWords.filter(word => 
     lowerText.includes(word)
   );
+  let hasNPOVViolations = false;
   if (npovMatches.length > 0) {
     biasScore += npovMatches.length * 8;
+    hasNPOVViolations = true;
     reasons.push(`Wikipedia NPOV: Contains value judgment language: ${npovMatches.slice(0, 5).join(', ')}`);
   }
   
@@ -201,6 +203,7 @@ export function analyzeNeutrality(text) {
   });
   if (toneViolations.length > 0) {
     biasScore += toneViolations.length * 10;
+    hasNPOVViolations = true;
     reasons.push(`Wikipedia NPOV: Uses editorial voice (${toneViolations.join(', ')}) instead of neutral third person`);
   }
   
@@ -221,6 +224,7 @@ export function analyzeNeutrality(text) {
   
   if (unattributedCount > 0) {
     biasScore += unattributedCount * 7;
+    hasNPOVViolations = true;
     reasons.push(`Wikipedia NPOV: Contains unattributed claims that should be attributed to sources`);
   }
   
@@ -240,6 +244,7 @@ export function analyzeNeutrality(text) {
   
   if (advocacyCount > 0) {
     biasScore += advocacyCount * 6;
+    hasNPOVViolations = true;
     reasons.push(`Wikipedia NPOV: Contains advocacy language (telling reader what to think)`);
   }
   
@@ -266,6 +271,7 @@ export function analyzeNeutrality(text) {
     rating,
     reasons,
     biasScore: Math.round(biasScore),
+    hasNPOVViolations,
     sentiment: {
       score: sentimentScore,
       comparative: sentimentResult.comparative || 0,
